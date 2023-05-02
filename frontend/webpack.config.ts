@@ -101,7 +101,7 @@ const webpackConfig = (env): Configuration => ({
       }),
       // Set default arguments of 'npm run build'
       'process.env.PRODUCTION': env.production || JSON.stringify(false),
-      'process.env.API_HOST': JSON.stringify(env.API_HOST || 'http://localhost:3000/api'),
+      'process.env.API_HOST': JSON.stringify(env.API_HOST || '/api'),
       'process.env.NAME': JSON.stringify(require('./package.json').name),
       'process.env.VERSION': JSON.stringify(require('./package.json').version),
     }),
@@ -113,4 +113,4 @@ const webpackConfig = (env): Configuration => ({
   ]
 })
 
-export default webpackConfig;
+export default webpackConfig

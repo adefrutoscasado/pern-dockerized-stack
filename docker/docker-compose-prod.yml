@@ -5,6 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_DB: db
+      # Use your own credentials for production
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: psswd
       # PGDATA: /data/postgres
@@ -22,16 +23,19 @@ services:
       - database
     restart: unless-stopped
     # Use the desired image defined at "pull-and-restart.sh"
-    image: ${registry}/${repository}/${app}-backend:${version}
+    # Example: localhost:5000/raspberry-repository/pern-app-backend:develop-arm64v8
+    image: ${registry}/${repository}/${app}-backend:${version}-${platform_tag}
     working_dir: /app
     environment:
         # Depends on 'database' docker service configuration
         DATABASE_HOST: 'database' # Docker service called 'database'
         DATABASE_NAME: 'db'
+        # Use your own credentials for production
         DATABASE_USER: 'admin'
         DATABASE_PASSWORD: 'psswd'
-        DATABASE_PORT: '3306'
+        DATABASE_PORT: '5432'
         NODE_ENV: production
+        # Use your own secrets for production
         JWT_SECRET: 87e3459aec28ec448228d4f990e80f14657daefc7f01a7146e1149663b30719d
         REFRESH_JWT_SECRET: 6c2723ab022250723988e5cf38e90908be10e82ee2ce802747d279f4dd7bc823
     volumes:
@@ -50,7 +54,8 @@ services:
       - backend
     restart: unless-stopped
     # Use the desired image defined at "pull-and-restart.sh"
-    image: ${registry}/${repository}/${app}-frontend:${version}
+    # Example: localhost:5000/raspberry-repository/pern-app-frontend:develop-arm64v8
+    image: ${registry}/${repository}/${app}-frontend:${version}-${platform_tag}
     working_dir: /app
     environment:
         NODE_ENV: production

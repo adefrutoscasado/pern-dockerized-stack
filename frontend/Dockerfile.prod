@@ -1,6 +1,6 @@
 # Production environment
-
-FROM node:14-alpine as build
+# Avoid using alpine here, since we often need python for frontend builds
+FROM node:14 as build
 
 # Do not use 'COPY . .' to copy all files. Copying all files will force a build even if no client files have been modified
 

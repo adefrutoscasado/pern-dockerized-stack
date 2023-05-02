@@ -226,6 +226,30 @@ You must have following software installed in your System:
 </details>
 
 <details>
+  <summary>Installing docker `buildx` plugin to push images to different machine architectures</summary>
+  <ol>
+  <br />
+
+  Download `buildx` binaries for your development local machine:
+  [https://github.com/docker/buildx/releases](https://github.com/docker/buildx/releases)
+
+  Rename the binary to `docker-buildx` and move the binary file to `~/.docker/cli-plugins/docker-buildx`. Give permissions to execute:
+
+  ```bash
+  chmod +x ~/.docker/cli-plugins/docker-buildx
+  ```
+
+  Install following needed packages:
+
+  ```bash
+  sudo apt install -y qemu-user-static binfmt-support
+  ```
+
+  <br />
+  </ol>
+</details>
+
+<details>
   <summary>Pulling changes from original repository</summary>
   <ol>
   <br />
