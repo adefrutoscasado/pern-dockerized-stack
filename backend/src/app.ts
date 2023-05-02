@@ -16,7 +16,9 @@ console.log(`Running in ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} mode\n`)
 // Test database connection
 const knexConnection = knex(databaseConfig)
 knexConnection.raw(`
-SELECT table_name FROM information_schema.tables WHERE table_schema='public' ;
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema='public';
 `)
   .then((data) => {
     console.log(data.rows)
