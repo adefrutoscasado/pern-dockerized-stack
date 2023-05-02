@@ -16,10 +16,10 @@ console.log(`Running in ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} mode\n`)
 // Test database connection
 const knexConnection = knex(databaseConfig)
 knexConnection.raw(`
-SHOW TABLES;
+SELECT table_name FROM information_schema.tables WHERE table_schema='public' ;
 `)
   .then((data) => {
-    console.log(data[0])
+    console.log(data.rows)
     console.log('\nDatabase connection successful\n')
   })
   .catch((error) => {

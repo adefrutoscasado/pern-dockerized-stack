@@ -1,30 +1,22 @@
 version: '3.4'
 services:
   database:
-    image: mysql:5.7
+    image: postgres:12-alpine
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
-      # So you don't have to use root, but you can if you like
-      MYSQL_USER: 'admin'
-      # You can use whatever password you like
-      MYSQL_PASSWORD: 'psswd'
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: 'psswd'
-    ports:
-      # <Port exposed> : <Port running inside container>
-      - '3306:3306'
-    expose:
-      # Opens port 3306 on the container
-      - '3306'
+      POSTGRES_DB: db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: psswd
+      # PGDATA: /data/postgres
     volumes:
       # Where our data will be persisted
-      - database-data:/var/lib/mysql
-    command:
-    # Change the default encoding and collation for all tables to use UTF-8 (utf8mb4)
-    - --character-set-server=utf8mb4
-    - --collation-server=utf8mb4_unicode_ci
-    - --skip-character-set-client-handshake
+      - database-data:/data/postgres
+    ports:
+      # <Port exposed> : <Port running inside container>
+      - "2345:5432"
+    expose:
+      # Opens port 2345 on the container
+      - '2345'
   backend:
     depends_on:
       - database
@@ -34,11 +26,11 @@ services:
     working_dir: /app
     environment:
         # Depends on 'database' docker service configuration
-        MYSQL_HOST: 'database' # Docker service called 'database'
-        MYSQL_DATABASE: 'db'
-        MYSQL_USER: 'admin'
-        MYSQL_PASSWORD: 'psswd'
-        MYSQL_PORT: '3306'
+        DATABASE_HOST: 'database' # Docker service called 'database'
+        DATABASE_NAME: 'db'
+        DATABASE_USER: 'admin'
+        DATABASE_PASSWORD: 'psswd'
+        DATABASE_PORT: '3306'
         NODE_ENV: production
         JWT_SECRET: 87e3459aec28ec448228d4f990e80f14657daefc7f01a7146e1149663b30719d
         REFRESH_JWT_SECRET: 6c2723ab022250723988e5cf38e90908be10e82ee2ce802747d279f4dd7bc823
