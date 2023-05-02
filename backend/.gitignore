@@ -1,0 +1,6 @@
+build/**/*
+node_modules/**/*
+*.tsbuildinfo
+# Ignore host generated package-lock.json. Only the one at sync-package-lock is valid, since its generated in the container
+/package-lock.json
+/eslint-report.txt

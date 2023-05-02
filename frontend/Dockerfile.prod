@@ -1,0 +1,32 @@
+# Production environment
+
+FROM node:14-alpine as build
+
+# Do not use 'COPY . .' to copy all files. Copying all files will force a build even if no client files have been modified
+
+# Set app directory
+WORKDIR /app
+
+# Environment variables
+ENV NODE_OPTIONS=--max_old_space_size=4096
+ENV PATH /app/node_modules/.bin:$PATH
+
+# Install
+COPY package.json ./
+COPY sync-package-lock ./
+# In production, we will use the package lock generated in the development process. No versions surprises.
+RUN npm clean-install
+
+# Build
+COPY src ./src
+COPY public ./public
+COPY .eslintrc.js ./
+COPY tsconfig.json ./
+COPY webpack.config.ts ./
+RUN npm run build
+
+# Nginx proxy to serve backend ('/api') and frontend ('/') from same port
+FROM nginx:stable-alpine
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80

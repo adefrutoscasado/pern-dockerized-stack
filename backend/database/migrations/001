@@ -1,0 +1,21 @@
+// Example migration. Add the '.js' extension to activate it
+// Our 0.0.1 version includes the table 'recipe'
+
+exports.up = async function (knex) {
+  await knex.raw(`
+    # Use singular names for tablenames
+    CREATE TABLE IF NOT EXISTS recipe (
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      # VARCHAR(255) and VARCHAR(2) take exactly the same amount of space on disk
+      name VARCHAR(255) NOT NULL
+    );
+  `)
+}
+
+exports.down = async function (knex) {
+  await knex.raw(`
+    DROP TABLE recipe;
+  `)
+}
+
+exports.config = { transaction: true }

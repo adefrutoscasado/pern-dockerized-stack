@@ -1,0 +1,32 @@
+# Development environment
+
+FROM node:14-alpine
+
+# Do not use 'COPY . .' to copy all files. Copying all files will force a build even if no client files have been modified
+
+# Set app directory
+WORKDIR /app
+
+# Environment variables
+ENV NODE_OPTIONS=--max_old_space_size=4096
+ENV PATH /app/node_modules/.bin:$PATH
+
+# Install
+COPY package.json ./
+COPY sync-package-lock ./
+# If package-lock.json is not found in previous step, it will be created in the following npm install
+RUN npm install
+
+# Development server
+COPY src ./src
+COPY public ./public
+COPY .eslintrc.js ./
+COPY tsconfig.json ./
+COPY webpack.config.ts ./
+
+# This is responsible of copying node_modules and package-lock.json to host machine
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
+CMD [ "npm", "start" ]

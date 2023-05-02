@@ -1,0 +1,10 @@
+{
+    "language-en": "English",
+    "language-es": "Spanish",
+
+    "yyyy/MM/dd": "yyyy/dd/MM",
+    "yyyy/MM/dd HH:mm": "yyyy/dd/MM HH:mm",
+    "yyyy/MM/dd HH:mm:ss": "yyyy/dd/MM HH:mm:ss",
+    "yyyy/MM/dd HH:mm:ss.SSS": "yyyy/dd/MM HH:mm:ss.SSS",
+    "HH:mm": "HH:mm"
+}
