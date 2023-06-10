@@ -19,11 +19,11 @@ prisma.$queryRaw`
   FROM information_schema.tables
   WHERE table_schema='public';
 `
-  .then((data) => {
+  .then((data: unknown) => {
     console.log(data)
     console.log('\nDatabase connection successful\n')
   })
-  .catch((error) => {
+  .catch((error: unknown) => {
     console.error('\nDatabase connection error')
     console.error(error)
   })
