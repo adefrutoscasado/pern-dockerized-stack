@@ -103,7 +103,7 @@ You must have following software installed in your System:
 
 1. Clone the repo:
     ```sh
-    git clone https://github.com/adefrutoscasado/pern-dockerized-stack.git
+    git clone --branch prisma --single-branch https://github.com/adefrutoscasado/pern-dockerized-stack.git
     ```
 2. Start the container:
     ```sh
