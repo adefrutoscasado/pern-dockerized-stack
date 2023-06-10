@@ -3,11 +3,12 @@
 
 exports.up = async function (knex) {
   await knex.raw(`
-    # Use singular names for tablenames
+    -- Use singular names for tablenames
     CREATE TABLE IF NOT EXISTS recipe (
-      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      # VARCHAR(255) and VARCHAR(2) take exactly the same amount of space on disk
-      name VARCHAR(255) NOT NULL
+      id SERIAL PRIMARY KEY,
+      -- VARCHAR(255) and VARCHAR(2) take exactly the same amount of space on disk
+      name VARCHAR(255) NOT NULL,
+      UNIQUE (id)
     );
   `)
 }

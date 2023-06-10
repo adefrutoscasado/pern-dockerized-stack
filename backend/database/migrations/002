@@ -4,19 +4,20 @@
 exports.up = async function (knex) {
   await knex.raw(`
     CREATE TABLE IF NOT EXISTS ingredient (
-      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL,
       name VARCHAR(255) NOT NULL UNIQUE,
+      UNIQUE (id),
       UNIQUE (name)
     );
   `)
   await knex.raw(`
     CREATE TABLE IF NOT EXISTS recipe_ingredient (
-      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL,
       recipe_id INT NOT NULL,
       ingredient_id INT NOT NULL,
       FOREIGN KEY (recipe_id) REFERENCES recipe(id),
       FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
-      UNIQUE (recipe_id, ingredient_id)
+      UNIQUE (id, recipe_id, ingredient_id)
     );
   `)
 }
