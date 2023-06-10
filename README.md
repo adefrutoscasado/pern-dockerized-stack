@@ -85,6 +85,13 @@ This project implements the main features to deploy a PERN stack application.
 - Endpoint and docker volume to upload files.
 - Database migrations (Optional).
 
+<!-- VARIANTS -->
+## Variants
+
+Want even more boilerplate code? Try following variant:
+
+- [Version including `prisma`](https://github.com/adefrutoscasado/pern-dockerized-stack/tree/prisma)
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
