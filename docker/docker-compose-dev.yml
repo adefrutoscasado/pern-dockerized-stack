@@ -40,6 +40,7 @@ services:
         - "../backend/sync-package-lock:/app/sync-package-lock"
         - "../backend/src:/app/src"
         - "../backend/public:/app/public"
+        - "../backend/prisma:/app/prisma"
         - "backend-uploads:/app/uploads"
     ports:
       - "3000:3000"

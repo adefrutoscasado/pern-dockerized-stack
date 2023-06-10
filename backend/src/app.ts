@@ -1,27 +1,26 @@
 import express, { NextFunction, Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import knex from 'knex'
 import cors from 'cors'
 import { errorHandler } from './utils'
 import { NotFoundError } from './errors'
 import { PRODUCTION, JWT_SECRET, REFRESH_JWT_SECRET } from './constants'
 import routes from './routes'
-import { databaseConfig } from './config'
 import HTTP_CODE from './errors/httpCodes'
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
 // Environment execution info
 console.log(`Running in ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} mode\n`)
 
 // Test database connection
-const knexConnection = knex(databaseConfig)
-knexConnection.raw(`
-SELECT table_name
-FROM information_schema.tables
-WHERE table_schema='public';
-`)
+prisma.$queryRaw`
+  SELECT table_name
+  FROM information_schema.tables
+  WHERE table_schema='public';
+`
   .then((data) => {
-    console.log(data.rows)
+    console.log(data)
     console.log('\nDatabase connection successful\n')
   })
   .catch((error) => {

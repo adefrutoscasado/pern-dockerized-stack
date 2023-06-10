@@ -7,3 +7,6 @@ indent_size = 2
 [*.scss] 
 indent_style = space
 indent_size = 2
+[*.prisma] 
+indent_style = space
+indent_size = 2

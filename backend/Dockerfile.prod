@@ -1,6 +1,6 @@
 # Production environment
 
-FROM node:12-alpine
+FROM node:18.16-alpine
 
 # Do not use 'COPY . .' to copy all files. Copying all files will force a build even if no client files have been modified
 
@@ -24,7 +24,7 @@ COPY src ./src
 RUN npm run build
 
 # Migrations
-COPY database ./
+COPY prisma ./prisma
 # Run migrations. This is also responsible of copying node_modules and package-lock.json to host machine.
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh

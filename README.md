@@ -30,7 +30,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h2>PERN Dockerized Stack</h2>
+  <h2>PERN Dockerized Stack + Prisma</h2>
   <br />
 
 [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
@@ -38,6 +38,8 @@
 [![React][React.js]][React-url]
 [![Nodejs][Node.js]][Node-url]
 [![Docker][Docker]][Docker-url]
+
+[![Prisma][Prisma]][Prisma-url]
 
   <p>
     <br />
@@ -214,12 +216,59 @@ You must have following software installed in your System:
 </details>
 
 <details>
-  <summary>Migrations</summary>
+  <summary>Migrations (prisma)</summary>
   <ol>
   <br />
 
-  Migrations are optional. If you prefer to manage dabatase changes manually, just ignore this part.
-  Migrations are configured at `backend/database/migrations` and are managed by [Knex](https://knexjs.org/guide/migrations.html). Two disabled files are included as example. To create a migration, just create a new file using `<filename>.js`. The order of execution of migrations is defined by the filename.
+  Define your database schema at `backend/prisma/schema.prisma`. An example is included. The schema state is pushed automatically to database on every docker up:
+
+  ```bash
+  docker-compose -f docker-compose-dev.yml up backend
+  ```
+
+  <br />
+  </ol>
+</details>
+
+<details>
+  <summary>Manage database (prisma)</summary>
+  <ol>
+  <br />
+
+  Enter the backend container using:
+
+  ```bash
+  docker-compose -f docker-compose-dev.yml exec backend /bin/sh
+  ```
+
+  Use following commands to manage migrations:
+
+  ```bash
+  Set up a new Prisma project
+  $ prisma init
+
+  Generate artifacts (e.g. Prisma Client)
+  $ prisma generate
+
+  Browse your data
+  $ prisma studio
+
+  Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
+  $ prisma migrate dev
+  
+  Pull the schema from an existing database, updating the Prisma schema
+  $ prisma db pull
+
+  Push the Prisma schema state to the database
+  $ prisma db push
+
+  Validate your Prisma schema
+  $ prisma validate
+
+  Format your Prisma schema
+  $ prisma format
+  ```
+
 
   <br />
   </ol>
@@ -361,3 +410,6 @@ Project Link: [https://github.com/adefrutoscasado/pern-dockerized-stack](https:/
 
 [Express]: https://img.shields.io/badge/express-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
 [Express-url]: https://expressjs.com/
+
+[Prisma]: https://img.shields.io/badge/prisma-5a67d8?style=for-the-badge&logo=Prisma&logoColor=white
+[Prisma-url]: https://www.prisma.io/
