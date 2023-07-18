@@ -86,6 +86,19 @@ const webpackConfig = (env): Configuration => ({
     },
     hot: true,
     open: true,
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: {
+          host: 'backend',
+          protocol: 'http:',
+          port: 3000
+        },
+        // ignorePath: true,
+        changeOrigin: true,
+        secure: false
+      }
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
